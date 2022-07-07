@@ -19,8 +19,10 @@ if (mysqli_num_rows($r) > 0){
       //envio respuesta a ajax como json
 
       echo (json_encode($array)); 
-      header('Content-Type: application/json');
       
+      header('Content-Type: application/json');
+      //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑       
+      //Función necesaria para que php envie el array correctamente a ajax
     }
 
 mysqli_close($con);
