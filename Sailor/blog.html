@@ -118,14 +118,11 @@
               <h3 class="sidebar-title">Search</h3>
 
               <div class="row">
-                <div class="col-6 ">
+                <div class="col ">
                     <div class="form">
-                        <input type="text" id="idINnombre" class="form-control" placeholder="....."
+                        <input type="text" id="idINnombre" class="form-control" placeholder="Ingrese un Nombre"
                             aria-describedby="TextHelpBlock">
-                        <div id="TextHelpBlock" class="form-text mb-3 text-white">
-                            Ingrese un texto para buscar...
                         
-                    </div>
                 </div>
             </div>
         </div>
@@ -190,7 +187,6 @@
                                 "<td id='id_t'>" + value.id_user + "</td>" +
                                 "<td>" + value.nmb_comp + "</td>" +
                                 "<td>" + value.email + "</td>" +
-                                
                                 "<td>" + value.tipo_user + "</td>" +
                                 //<img  src='assets/img/editar.png' width='30px'>
                                 //"<td><a id='editar' href='javascript:editar(" + value.id_usuario + ")'>actualizar</a></td>" +
@@ -203,8 +199,145 @@
                 })
                 }
             })
-          })
+//FINAL DE TABLA
+
+
+    //AGREGAR USUARIO NUEVO
+    $('#enviar').click(function(){
+        
+        var nmb=$('#nmb_comp').val();
+        var eml=$('#email').val();
+        var ps=$('#contra').val();
+        var us=$('#tipo_user').val();
+        
+    
+            $.ajax({
+                type:"POST",
+                url:"agregar.php",
+                data: {"nmb_comp": nmb, "email": eml, "tipo_user": us, "contra":ps},
+                dataType: "json",
+            });
+            
+            $('#myModal').modal('hide')
+            alert("REALIZADO")
+            $('#nmb_comp').val('');
+            $('#email').val('');
+            $('#contra').val('');
+            $('#tipo_user').val('');
+            
+        });
+
+        //MODIFICAR USUARIO
+        $('#idTB1').on('click','#editar', function(e) {
+            e.preventDefault();
+            
+            var filaactual = $(this).closest("tr"); // obtiene la fila actual
+
+            var id = filaactual.find("td:eq(0)").text(); // obtiene el valor del primer TD de la fila actual
+            
+            
+            $.ajax({
+                    type:"POST",
+                    url:"completar.php",
+                    data:{"id":id},
+                    dataType:"json",
+                    success: function(respuesta){
+                        $.each(respuesta, function(key, value){
+                            $('#id').val(value.id_usuario)
+                            $('#nmb_comp').val(value.nmb_comp)
+                            $('#email').val(value.email)
+                            $('#contra').val(value.contra)
+                            $('#tipo_user').val(value.tipo_user)
+                            
+                        });
+                    }
+                });
+                $('#myModal').modal('show');
+        });
+        
+        
+
+        //BORRAR USUARIO
+        
+        $('#borrar').click(function(){
+                var opcion = confirm("Desea borrar el usuario? ");
+                if (opcion == true) {
+                    var usuariomodal=$('#nmb_comp').val()
+
+                    $.ajax({
+                        url:"borrar.php",
+                        type:"POST",
+                        data:{"nmb_comp":usuariomodal},
+                        dataType:"json",
+                    });
+                    $('#myModal').modal('hide')
+                }
+            });
+
+
+
+        
+    
+        //BOTON MODAL DE AGREGAR USUARIO
+        $('#myBtn').click(function(){
+                $('#myModal').modal('show');
+        });
+
+        //cierra document
+    }); 
             </script>
+
+      <!-- MODAL -->
+      <div class="modal fade " id="myModal" style="padding-top: 4rem;" role="dialog">
+        <div class="modal-dialog">
+
+        <!-- CONTENIDO DEL MODAL-->
+        <div class="col-9 modal-content">
+            <div class="modal-header"  style="padding:35px 50px;">
+                
+                <h4> Usuario</h4>
+            </div>
+            <div class="modal-body text-start " style="padding:40px 50px;">
+                <form  method="POST" action="">
+                    <div class="form-group">
+                        <label > Id</label>
+                        <input type="number"  class="form-control" id="id" name="id" placeholder="1" disabled >
+                    </div>
+                    <div class="form-group">
+                        <label > Nombre y Apellido</label>
+                        <input type="text" class="form-control" id="nmb_comp" name="nmb_comp" placeholder="Nombre Apellido">
+                    </div>
+                    <div class="form-group">
+                        <label > Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="user@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label > Password</label>
+                        <input type="password" class="form-control" id="contra" name="contra" placeholder="*****">
+                    </div>
+                    <div class="form-group">
+                        <label > Tipo</label>
+                        <select name="tipo_user" id="tipo_user" class="form-control">
+                          <option value="AD">Administrador</option>
+                          <option value="G">Gerente</option>
+                        </select>
+                    </div><br>
+                    <div class="row  justify-content-center m-auto">
+                        <div class="col">
+                        <button type="button" id="borrar" style="border-style:none" ><img src="img/borrar1.png"></button>
+                        
+                        </div>
+                        <div class="col ">
+                        <button type="button" id="enviar" style="border-style:none"><img src="img/guardar.png"></button>
+                        </div>
+                    </div>
+                    </form>
+            </div>
+            
+        </div>
+    </div>
+</div> 
+
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

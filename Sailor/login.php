@@ -14,7 +14,7 @@
     if (mysqli_num_rows($r)>0) {
         session_start();
         $_SESSION ['nombre-usuarios']=$u;
-        header("location: prueba.html");
+        header("location: blog.html");
     }
     else
     {
