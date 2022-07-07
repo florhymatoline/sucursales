@@ -20,7 +20,7 @@
             <div class="col-2">
                 <input class="form-control altura" type="button" id="ordenarNomb" value="mostrar" placeholder="Buscar Nombre">
             </div>
-            <div class="col-2">
+            <!--<div class="col-2">
                 <select class="form-control altura" id="orderBy" value="0" placeholder="ordenar por">
                     <option class="form-control altura" value="0">Ordenar por...</option>
                     <option class="form-control altura" value="1">Fecha de nacimiento ↑</option>
@@ -28,7 +28,7 @@
                     <option class="form-control altura" value="3">Id ↑</option>
                     <option class="form-control altura" value="4">Id ↓</option>
                 </select>
-            </div>
+            </div>-->
             <div class="col-2">
                 <button id="botonModal" type="button" class="btn text-center btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">+</button>
             </div>
@@ -93,14 +93,15 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class='xd'>id</th>
-                            <th class='xd'>sucursal</th>
-                            <th class='xd'>localizacion<th>
-                            <th class='xd'>capacidad maxima</th>
-                            <th class='xd'>encargado</th>
-                            <th class='xd'>id encargado</th>
-                            <th class='xd'>editar</th>
-                            <th class='xd'>borrar</th>
+                            <th class='xd'>ID</th>
+                            <th class='xd'>Sucursal</th>
+                            <th class='xd'>Localización</th>
+                            <th class='xd'>Capacidad maxima</th>
+                            <th class='xd'>Encargado</th>
+                            <th class='xd'>ID encargado</th>
+                            <th class='xd'>Editar</th>
+                            <th class='xd'>Borrar</th>
+                            
                         </tr>
                     </thead>
                     <tbody  id="tabla1">
@@ -108,6 +109,7 @@
                     </tbody>
                 </table>    
             </div>
+        </div>
             <div class="col-2">
                 <!-- The Modal -->
                 <div class="modal fade" id="modalEdit">
@@ -279,14 +281,15 @@
         $("#ordenarNomb").click(function(){
            //console.log("keypress")
             $("#tabla1").empty()
-            var opt = $("#orderBy").val()
+            //var opt = $("#orderBy").val()
             var p = $("#ordenarNomb").val()
             if (p != ""){
                //console.log("if")
+               
             $.ajax({
                 url: "CrudSucursales.php", //action
                 type: "POST", //method
-                data: {"alumnos3": p, "opcion": opt},
+                data: {"sucursal": p},
                 dataType: "json",
                 success: function(respuesta){
                  //console.log("each")
@@ -375,7 +378,7 @@
 
                                 var eliminarDatos = $("#formDelete").serialize();
                                 $.ajax({
-                                url: "BackendAjax5_DeleteData.php",
+                                url: "CrudSucursalesDelete.php",
                                 type: "POST",
                                 data: eliminarDatos,
                                 success: function(r){
@@ -404,7 +407,7 @@
             }
             
         })
-        
+        /*
         $("#orderBy").change(function(){
            //console.log("keypress")
             $("#tabla1").empty()
@@ -478,7 +481,7 @@
                             
                         })
 
-                        /*----------funcion para eliminar datos----------*/
+                        /*----------funcion para eliminar datos----------
                         $("#delete"+fv).click(function(){
                             
                             $("#id_sucursalDelete").val(value.id_sucursal)
@@ -530,7 +533,7 @@
                 
             })
             }
-        })
+        })*/
 
         
 

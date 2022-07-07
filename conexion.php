@@ -7,7 +7,7 @@ $dbname = "sucursales";
 //conexió
 //api mysql para php
 $con = mysqli_connect($dbip, $dbuser, $dbpass, $dbname);
-if(mysqli_connect_errno())
+/*if(mysqli_connect_errno())
 {
     echo 'conexion fallida : ', mysqli_connect_error();
     exit(); 
@@ -15,5 +15,5 @@ if(mysqli_connect_errno())
 else
 {
    echo "<script> alert('conexión exitosa')</script>";
-}
+}*/
 ?>
