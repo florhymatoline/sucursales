@@ -6,7 +6,7 @@ require 'conexion.php';
 
 
 
-$q = "SELECT * FROM sucursales";
+$q = "SELECT * FROM `sucursales`,`usuarios` WHERE sucursales.id_user = usuarios.id_user";
 
 $r = mysqli_query($con, $q);
 

@@ -7,7 +7,7 @@ require 'conexion.php';
 
 
 
-$q = "SELECT  id_user FROM usuarios";
+$q = "SELECT id_user FROM usuarios WHERE ocupado = 'NO'";
 
 $r = mysqli_query($con, $q);
 

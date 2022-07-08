@@ -227,29 +227,29 @@
                         <div class="modal-header">
                             <h5 class="modal-title col-5">Datos del usuario</h5>
                             <div class="col-2 text-start">
-                            <label>id</label><input type="text" class="form-control" name="id_user" id="id_user" readonly>
+                            <label>id</label><input type="text" class="form-control" name="id_userCons" id="id_userCons" readonly>
                             </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-6">                                        
-                                    <label for="texto de ejemplo" class="form-label">Nombre Complet</label>
-                                    <input name="nmb_comp" type="text" id="nmb_comp" class="form-control" readonly>        
+                                    <label for="texto de ejemplo" class="form-label">Nombre Completo</label>
+                                    <input name="nmb_comp" type="text" id="nmb_compCons" class="form-control" value="" readonly>        
                                 </div>
                                 <div class="col-6">                                        
                                     <label for="texto de ejemplo" class="form-label">Email</label>
-                                    <input name="email" type="text" id="email" class="form-control" readonly>        
+                                    <input name="email" type="text" id="emailCons" class="form-control" value="" readonly>        
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">                                        
                                     <label for="texto de ejemplo" class="form-label">Contraseña</label>
-                                    <input name="contra" type="password" id="contra" class="form-control" readonly>        
+                                    <input name="contra" type="password" id="contraCons" class="form-control" value="" readonly>        
                                 </div>
                                 <div class="col-6">                                        
                                     <label for="texto de ejemplo" class="form-label">Tipo de usuario</label>
-                                    <input name="tipo_user" type="text" id="tipo_user" class="form-control" readonly>        
+                                    <input name="tipo_user" type="text" id="tipo_userCons" class="form-control" value="" readonly>        
                                 </div>
                             </div>
                         </div>
@@ -290,7 +290,7 @@
 				url:"CrudSucursalesAdd.php",
 				data: datos,
 				success:function(r){
-					if(r==1){
+					if(r==11){
 						alert("agregado con exito");
 					}else{
 						alert("Fallo ");
@@ -304,7 +304,6 @@
         //Funcion para agrgar los IDs de usuario al select del modal
         $("#botonModal").click(function(){
             $("#id_user").empty()
-            $("#id_user").append()
             $.ajax({
                 url:"ConsultaId.php",
                 type:"GET",
@@ -328,6 +327,7 @@
             $("#tabla1").empty()
             //var opt = $("#orderBy").val()
             var p = $("#ordenarNomb").val()
+
             if (p != ""){
                //console.log("if")
                
@@ -370,7 +370,7 @@
                             $("#capacidad_maxEdit").attr('placeholder', value.capacidad_max)
                             
                             //$("#encargdoEdit").val(value.encargado)
-                           //$("#encargdoEdit").attr('placeholder', value.encargado)
+                            //$("#encargdoEdit").attr('placeholder', value.encargado)
                             
                             $("#id_userEdit").val(value.id_user)
                             $("#id_userEdit").attr('placeholder', value.id_user)
@@ -440,6 +440,20 @@
 
                             })
 
+                        })
+
+                        $("#tablaUsuarios"+fv).click(function(){
+
+                            $("#id_userCons").val(value.id_user)
+
+                            $("#nmb_compCons").val(value.nmb_comp)
+
+                            $("#emailCons").val(value.email)
+
+                            $("#contraCons").val(value.contra)
+
+                            $("#tipo_userCons").val(value.tipo_user)
+                             
                         })
 
                         fv = fv + 1
