@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <input class="form-control altura" type="button" id="ordenarNomb" value="mostrar" placeholder="Buscar Nombre">
+                <input class="form-control altura" type="button" id="ordenarNomb" value="mostrar">
             </div>
             <!--<div class="col-2">
                 <select class="form-control altura" id="orderBy" value="0" placeholder="ordenar por">
@@ -32,7 +32,7 @@
             <div class="col-2">
                 <button id="botonModal" type="button" class="btn text-center btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">+</button>
             </div>
-                 <!-- The Modal -->
+                <!-- The Modal -->
                 <div class="modal fade" id="myModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -62,7 +62,8 @@
                                                 <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
                                                 <input name="capacidad_max" type="text" id="capacidad_max" placeholder="" class="form-control">   
                                             </div>
-                                            <div class="col-6 align-self-end">                                        
+                                            <div class="col-6 align-self-end">       
+                                                <label for="texto de ejemplo" class="form-label">ID Encargado</label>                                 
                                                 <select class="form-control altura" name="id_user" id="id_user">
                                                     <option  name="id_userOpt" value="0">id encargado</option>
                                                 </select>
@@ -99,7 +100,6 @@
                             <th class='xd'>Sucursal</th>
                             <th class='xd'>Localización</th>
                             <th class='xd'>Capacidad maxima</th>
-                            <th class='xd'>Encargado</th>
                             <th class='xd'>ID encargado</th>
                             <th class='xd'>Editar</th>
                             <th class='xd'>Borrar</th>
@@ -146,18 +146,13 @@
                                         <div class="row">
                                             <div class="col-6">                                        
                                                 <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
-                                                <input name="capacidad_maxEdit" type="text" id="capacidad_maxEdit" placeholder="" class="form-control">        
+                                                <input name="capacidad_maxEdit" type="text" id="capacidad_maxEdit" placeholder="" class="form-control">  
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-6">                                        
-                                                <label for="texto de ejemplo" class="form-label">id encargado</label>
-                                                <input name="id_userEdit" type="text" id="id_userEdit" placeholder="" class="form-control">        
-                                        </div>
-                                        <div class="col-6">                                        
-                                            <label for="texto de ejemplo" class="form-label">encargado</label>
-                                            <input name="encargadoEdit" type="text" id="encargdoEdit"  class="form-control">       
-                                        </div>
+                                                    <label for="texto de ejemplo" class="form-label">id encargado</label>
+                                                    <input name="id_userEdit" type="text" id="id_userEdit" placeholder="" class="form-control">        
+                                                </div>      
+                                        </div>   
                                     </div>
                                 </div>
                             </form>  
@@ -208,16 +203,10 @@
                                                 <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
                                                 <input name="capacidad_maxDelete" type="text" id="capacidad_maxDelete" placeholder="" class="form-control" readonly>        
                                             </div>
-                                            
-                                        </div>
-                                        <div class="row">
                                             <div class="col-6">                                        
                                                 <label for="texto de ejemplo" class="form-label">id encargado</label>
                                                 <input name="id_userDelete" type="text" id="id_userDelete" placeholder="" class="form-control" readonly>        
-                                        </div>
-                                        <div class="col-6">                                        
-                                            <label for="texto de ejemplo" class="form-label">encargado</label>
-                                            <input name="encargadoDelete" type="text" id="encargadoDelete"  class="form-control" readonly>       
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -231,6 +220,46 @@
                     </div>  
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="modalUser">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title col-5">Datos del usuario</h5>
+                            <div class="col-2 text-start">
+                            <label>id</label><input type="text" class="form-control" name="id_user" id="id_user" readonly>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Nombre Complet</label>
+                                    <input name="nmb_comp" type="text" id="nmb_comp" class="form-control" readonly>        
+                                </div>
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Email</label>
+                                    <input name="email" type="text" id="email" class="form-control" readonly>        
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Contraseña</label>
+                                    <input name="contra" type="password" id="contra" class="form-control" readonly>        
+                                </div>
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Tipo de usuario</label>
+                                    <input name="tipo_user" type="text" id="tipo_user" class="form-control" readonly>        
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            
         </div>
 </body>
 </html>
@@ -269,16 +298,13 @@
 				}
 			})
 
-            
-            
-
-            
         })
 
-
-        
+      
         //Funcion para agrgar los IDs de usuario al select del modal
         $("#botonModal").click(function(){
+            $("#id_user").empty()
+            $("#id_user").append()
             $.ajax({
                 url:"ConsultaId.php",
                 type:"GET",
@@ -321,8 +347,8 @@
                         "<td class='align-middle xd'>"+value.sucursal+"</td>"+
                         "<td class='align-middle xd'>"+value.localizacion+"</td>"+
                         "<td class='align-middle xd'>"+value.capacidad_max+"</td>"+
-                        "<td class='align-middle xd'>"+value.encargado+"</td>"+
-                        "<td class='align-middle xd'>"+"<button class='btn text-center' name='tablaUsuarios' id='tablaUsuarios"+fv+"'>"+value.id_user+"</button>"+"</td>"+
+                        //"<td class='align-middle xd'>"+value.encargado+"</td>"+
+                        "<td class='align-middle xd'>"+"<button class='btn text-center' name='tablaUsuarios' id='tablaUsuarios"+fv+"' data-bs-toggle='modal' data-bs-target='#modalUser'>"+value.id_user+"</button>"+"</td>"+
                         "<td class='align-middle xd'>"+"<button class='btn text-center' id='edit"+fv+"' data-bs-toggle='modal' data-bs-target='#modalEdit' >"+"<img class='iconsize xd' src='../../img/IconoLapiz.png'>"+"</button>"+"</td>"+
                         "<td class='align-middle xd'>"+"<button class='btn text-center' id='delete"+fv+"' data-bs-toggle='modal' data-bs-target='#modalDelete' >"+"<img class='iconsize xd' src='../../img/IconoBasura.png'>"+"</button>"+"</td>"+
                         "</tr>") 
@@ -343,8 +369,8 @@
                             $("#capacidad_maxEdit").val(value.capacidad_max)
                             $("#capacidad_maxEdit").attr('placeholder', value.capacidad_max)
                             
-                            $("#encargdoEdit").val(value.encargado)
-                            $("#encargdoEdit").attr('placeholder', value.encargado)
+                            //$("#encargdoEdit").val(value.encargado)
+                           //$("#encargdoEdit").attr('placeholder', value.encargado)
                             
                             $("#id_userEdit").val(value.id_user)
                             $("#id_userEdit").attr('placeholder', value.id_user)
@@ -387,8 +413,8 @@
                             $("#capacidad_maxDelete").val(value.capacidad_max)
                             $("#capacidad_maxDelete").attr('placeholder', value.capacidad_max)
                             
-                            $("#encargadoDelete").val(value.encargado)
-                            $("#encargadoDelete").attr('placeholder', value.encargado)
+                            //$("#encargadoDelete").val(value.encargado)
+                            //$("#encargadoDelete").attr('placeholder', value.encargado)
                             
                             $("#id_userDelete").val(value.id_user)
                             $("#id_userDelete").attr('placeholder', value.id_user)
