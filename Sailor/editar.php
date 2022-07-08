@@ -2,14 +2,13 @@
 require 'conexion.php';
 
 $id=$_POST['id'];
-$nmb=$_POST['nombre'];
-$eml=$_POST['email'];
-$us=$_POST['user'];
-$ps=MD5($_POST['pass']);
-$tp=$_POST['tipo'];
-$fn=$_POST['fch_n'];
+$nm= $_POST['nmb_comp']; 
+$em=$_POST['email'];
+$p= MD5($_POST['contra']);
+$tp= $_POST['tipo_user']; 
+$oc= $_POST['ocupacion']; 
 
-$q="UPDATE usuarios SET id_usuario='$id', nmb_cmp='$nmb', email='$eml', usuario='$us',contra='$ps', tipo='$tp', fch_nac='$fn' WHERE id_usuario='$id'";
+$q="UPDATE usuarios SET id_user='$id', nmb_comp='$nm', email='$em', contra='$p', tipo_user='$tp', ocupacion='$oc' WHERE id_user='$id'";
 
 $r=mysqli_query($con, $q);
 

@@ -26,22 +26,12 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!--MODAL LINKS-->
-        
-
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Sailor - v4.7.0
-  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -51,9 +41,6 @@
     <div class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">Sailor</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -97,7 +84,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Usuarios</h2>
+          <h2>Sucursales</h2>
           
         </div>
 
@@ -126,14 +113,6 @@
                 </div>
             </div>
         </div>
-
-              <!--<div class="sidebar-item search-form">
-                <form action="">
-                  <input type="text" id="idINnombre" placeholder="Ingrese un Nombre">
-                 
-                </form>
-              </div>End sidebar search formn-->
-
               </div><!-- End sidebar recent posts-->
 
               
@@ -149,7 +128,6 @@
                     <td>Sucursal</td>
                     <td>Localización</td>
                     <td>Capacidad Maxíma</td>
-                    <td>Encargado</td>
                     <td>Usuario</td>
                     <td><button id="myBtn" style="border-style:none; background-color: rgb(252, 252, 252);" ><img src="img/agregar.png" width="30px" alt=""></button></td>
                     
@@ -170,17 +148,14 @@
 
   <!--JQUERY TABLA DE USUARIOS-->
   <script >
-    //jquery envio de datos del formulario a php(con metodo $.ajax)
     $(document).ready(function () {
-        //console.log("Pagina lista...");
-        //cada vez que se presiona una tecla envio consulta por ajax
         $('#idINnombre').keyup(function () {
             $("#idTB1").empty()
             var p = $('#idINnombre').val();
             if (p != "") {
                 $.ajax({
-                    url: "tabla2.php", //action
-                    type: "GET", //method
+                    url: "tabla-s.php",
+                    type: "GET",
                     data: { "sucursal": p},
                     dataType: "json",
                     success: function (respuesta) {
@@ -190,36 +165,30 @@
                                 "<td>" + value.sucursal + "</td>" +
                                 "<td>" + value.localizacion + "</td>" +
                                 "<td>" + value.capacidad_max + "</td>" +
-                                "<td>" + value.encargado + "</td>" +
                                 "<td>" + value.id_user + "</td>" +
-                                //<img  src='assets/img/editar.png' width='30px'>
-                                //"<td><a id='editar' href='javascript:editar(" + value.id_usuario + ")'>actualizar</a></td>" +
+
                                 "<td><a id='editar' >editar</a></td>" +
 
-                                //"<td><button type='button' value='("+value.id_usuario+")' id='editar' style='border-style:none'>editar</button></td>"+
                                 "</tr>")
                         })
                     }
                 })
                 }
             })
-//FINAL DE TABLA
-
 
     //AGREGAR USUARIO NUEVO
-    $('#enviar').click(function(){
+    $('#agregar').click(function(){
         
         var su=$('#sucursal').val();
         var loc=$('#localizacion').val();
         var cm=$('#capacidad_max').val();
-        var en=$('#encargado').val();
         var us=$('#id_user').val();
         
     
             $.ajax({
                 type:"POST",
-                url:"agregar.php",
-                data: {"sucursal": su, "localizacion": loc, "capacidad_max":cm, "encargado":en, "id_user":us},
+                url:"agregar-s.php",
+                data: {"sucursal": su, "localizacion": loc, "capacidad_max":cm,  "id_user":us},
                 dataType: "json",
             });
             
@@ -228,71 +197,86 @@
             $('#sucursal').val('');
             $('#localizacion').val('');
             $('#capacidad_max').val('');
-            $('#encargado').val('');
             $('#id_user').val('');
             
         });
 
         //MODIFICAR USUARIO
         $('#idTB1').on('click','#editar', function(e) {
+          $('#myModal').modal('show');
             e.preventDefault();
             
             var filaactual = $(this).closest("tr"); // obtiene la fila actual
-
             var id = filaactual.find("td:eq(0)").text(); // obtiene el valor del primer TD de la fila actual
-            
-            
             $.ajax({
                     type:"POST",
-                    url:"completar.php",
+                    url:"completar-s.php",
                     data:{"id":id},
                     dataType:"json",
                     success: function(respuesta){
                         $.each(respuesta, function(key, value){
                             $('#id').val(value.id_sucursal)
-                            $('#nmb_comp').val(value.sucursal)
-                            $('#email').val(value.localizacion)
-                            $('#contra').val(value.capacidad_max)
-                            $('#tipo_user').val(value.encargado)
-                            $('#tipo_user').val(value.id_user)
+                            $('#sucursal').val(value.sucursal)
+                            $('#localizacion').val(value.localizacion)
+                            $('#capacida_max').val(value.capacidad_max)
+                            $('#id_user').val(value.id_user)
                             
                         });
                     }
                 });
-                $('#myModal').modal('show');
-        });
-        
+              });
         
 
+                $('#enviar').click(function(){
+                  var id=$('#id').val();
+                  var su=$('#sucursal').val();
+                  var loc=$('#localizacion').val();
+                  var cm=$('#capacidad_max').val();
+                  var us=$('#id_user').val();
+        
+            $.ajax({
+                type:"POST",
+                url:"editar-s.php",
+                data: {"id":id, "sucursal": su, "localizacion": loc, "capacidad_max":cm,  "id_user":us},
+                dataType: "json",
+                success: function(respuesta){
+                        $.each(respuesta, function(key, value){
+                          $('#myModal').modal('hide');
+                          alert("REALIZADO")
+                        });
+                    }
+            });
+            
+            $('#myModal').modal('hide');
+            alert("REALIZADO")
+        });
+
+        
         //BORRAR USUARIO
         
         $('#borrar').click(function(){
                 var opcion = confirm("Desea borrar el usuario? ");
                 if (opcion == true) {
-                    var usuariomodal=$('#nmb_comp').val()
+                    var usuariomodal=$('#sucursal').val()
 
                     $.ajax({
-                        url:"borrar.php",
+                        url:"borrar-s.php",
                         type:"POST",
-                        data:{"nmb_comp":usuariomodal},
+                        data:{"sucursal":usuariomodal},
                         dataType:"json",
                     });
                     $('#myModal').modal('hide')
                 }
             });
 
-
-
-        
-    
-        //BOTON MODAL DE AGREGAR USUARIO
+            
+//BOTON MODAL DE AGREGAR USUARIO
         $('#myBtn').click(function(){
                 $('#myModal').modal('show');
         });
 
-        //cierra document
     }); 
-            </script>
+  </script>
 
       <!-- MODAL -->
       <div class="modal fade " id="myModal" style="padding-top: 4rem;" role="dialog">
@@ -324,7 +308,7 @@
                     </div>
                   <div class="form-group">
                     <label > Usuario</label>
-                    <input type="text"  class="form-control" id="id_user" name="id_user" placeholder=""  >
+                    <input type="text"  class="form-control" id="id_user" name="id_user" placeholder="Usuario123"  >
                 </div><br>
                     <div class="row  justify-content-center m-auto">
                         <div class="col">
@@ -342,6 +326,49 @@
     </div>
 </div> 
 
+<!-- MODAL DE AGREGAR-->
+<div class="modal fade " id="myModal" style="padding-top: 4rem;" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- CONTENIDO DEL MODAL-->
+  <div class="col-9 modal-content">
+      <div class="modal-header"  style="padding:35px 50px;">
+          
+          <h4> Sucursal</h4>
+      </div>
+      <div class="modal-body text-start " style="padding:40px 50px;">
+          <form  method="POST" action="">
+              <div class="form-group">
+                  <label > Id</label>
+                  <input type="number"  class="form-control" id="id" name="id" placeholder="1" disabled >
+              </div>
+              <div class="form-group">
+                  <label > Sucursal</label>
+                  <input type="text" class="form-control" id="sucursal" name="sucursal" placeholder="Sucursal">
+              </div>
+              <div class="form-group">
+                  <label > Localización</label>
+                  <input type="text" class="form-control" id="localizacion" name="localizacion" placeholder="Ubicacion 123">
+              </div>
+              <div class="form-group">
+                  <label > Capacidad Maxíma</label>
+                  <input type="number" min="1" class="form-control" id="capacidad_max" name="capacidad_max" placeholder="100">
+              </div>
+            <div class="form-group">
+              <label > Usuario</label>
+              <input type="text"  class="form-control" id="id_user" name="id_user" placeholder="Usuario123"  >
+          </div><br>
+              <div class="row  justify-content-center m-auto">
+                  <div class="col ">
+                  <button type="button" id="agregar" style="border-style:none; background-color: white;"><img src="img/guardar.png"></button>
+                  </div>
+              </div>
+              </form>
+      </div>
+      
+  </div>
+</div>
+</div> 
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

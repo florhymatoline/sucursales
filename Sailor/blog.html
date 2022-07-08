@@ -26,22 +26,12 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!--MODAL LINKS-->
-        
-
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Sailor - v4.7.0
-  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -51,9 +41,7 @@
     <div class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">Sailor</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
+      
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -126,14 +114,6 @@
                 </div>
             </div>
         </div>
-
-              <!--<div class="sidebar-item search-form">
-                <form action="">
-                  <input type="text" id="idINnombre" placeholder="Ingrese un Nombre">
-                 
-                </form>
-              </div>End sidebar search formn-->
-
               </div><!-- End sidebar recent posts-->
 
               
@@ -149,6 +129,7 @@
                     <td>Nombre y Apellido</td>
                     <td>Email</td>
                     <td>Tipo</td>
+                    <td>Ocupacion</td>
                     <td><button id="myBtn" style="border-style:none; background-color: rgb(252, 252, 252);" ><img src="img/agregar.png" width="30px" alt=""></button></td>
                     
                 </thead>
@@ -168,17 +149,14 @@
 
   <!--JQUERY TABLA DE USUARIOS-->
   <script >
-    //jquery envio de datos del formulario a php(con metodo $.ajax)
     $(document).ready(function () {
-        //console.log("Pagina lista...");
-        //cada vez que se presiona una tecla envio consulta por ajax
         $('#idINnombre').keyup(function () {
             $("#idTB1").empty()
             var p = $('#idINnombre').val();
             if (p != "") {
                 $.ajax({
-                    url: "tabla.php", //action
-                    type: "GET", //method
+                    url: "tabla.php",
+                    type: "GET", 
                     data: { "nmb_comp": p},
                     dataType: "json",
                     success: function (respuesta) {
@@ -188,42 +166,40 @@
                                 "<td>" + value.nmb_comp + "</td>" +
                                 "<td>" + value.email + "</td>" +
                                 "<td>" + value.tipo_user + "</td>" +
-                                //<img  src='assets/img/editar.png' width='30px'>
-                                //"<td><a id='editar' href='javascript:editar(" + value.id_usuario + ")'>actualizar</a></td>" +
+                                "<td>" + value.ocupacion + "</td>" +
                                 "<td><a id='editar' >editar</a></td>" +
 
-                                //"<td><button type='button' value='("+value.id_usuario+")' id='editar' style='border-style:none'>editar</button></td>"+
                                 "</tr>")
                         })
                     }
                 })
                 }
             })
-//FINAL DE TABLA
-
 
     //AGREGAR USUARIO NUEVO
-    $('#enviar').click(function(){
+    $('#agregar').click(function(){
         
-        var nmb=$('#nmb_comp').val();
-        var eml=$('#email').val();
-        var ps=$('#contra').val();
-        var us=$('#tipo_user').val();
+        var nmb=$('#nmb_comp1').val();
+        var eml=$('#email1').val();
+        var ps=$('#contra1').val();
+        var us=$('#tipo_user1').val();
+        var oc=$('#ocupacion1').val();
         
     
             $.ajax({
                 type:"POST",
                 url:"agregar.php",
-                data: {"nmb_comp": nmb, "email": eml, "tipo_user": us, "contra":ps},
+                data: {"nmb_comp1": nmb, "email1": eml, "tipo_user1": us, "contra1":ps, "ocupacion1":oc},
                 dataType: "json",
             });
             
-            $('#myModal').modal('hide')
+            $('#myModal2').modal('hide')
             alert("REALIZADO")
-            $('#nmb_comp').val('');
-            $('#email').val('');
-            $('#contra').val('');
-            $('#tipo_user').val('');
+            $('#nmb_comp1').val('');
+            $('#email1').val('');
+            $('#contra1').val('');
+            $('#tipo_user1').val('');
+            $('#ocupacion1').val('');
             
         });
 
@@ -234,7 +210,6 @@
             var filaactual = $(this).closest("tr"); // obtiene la fila actual
 
             var id = filaactual.find("td:eq(0)").text(); // obtiene el valor del primer TD de la fila actual
-            
             
             $.ajax({
                     type:"POST",
@@ -248,6 +223,7 @@
                             $('#email').val(value.email)
                             $('#contra').val(value.contra)
                             $('#tipo_user').val(value.tipo_user)
+                            $('#ocupacion').val(value.ocupacion)
                             
                         });
                     }
@@ -255,7 +231,29 @@
                 $('#myModal').modal('show');
         });
         
-        
+        $('#enviar').click(function(){
+          var id=$('#id').val();
+          var nmb=$('#nmb_comp').val();
+        var eml=$('#email').val();
+        var ps=$('#contra').val();
+        var us=$('#tipo_user').val();
+        var oc=$('#ocupacion').val();
+
+            $.ajax({
+                type:"POST",
+                url:"editar.php",
+                data: {"id": id,"nmb_comp": nmb, "email": eml, "tipo_user": us, "contra":ps, "ocupacion":oc},
+                dataType: "json",
+                success: function(respuesta){
+                        $.each(respuesta, function(key, value){
+                          $('#myModal').modal('hide');
+                          alert("REALIZADO");
+                        });
+                    }
+            });
+            $('#myModal').modal('hide');
+            alert("REALIZADO")
+        });
 
         //BORRAR USUARIO
         
@@ -274,18 +272,13 @@
                 }
             });
 
-
-
-        
-    
         //BOTON MODAL DE AGREGAR USUARIO
         $('#myBtn').click(function(){
-                $('#myModal').modal('show');
+                $('#myModal2').modal('show');
         });
-
-        //cierra document
     }); 
-            </script>
+  </script>
+
 
       <!-- MODAL -->
       <div class="modal fade " id="myModal" style="padding-top: 4rem;" role="dialog">
@@ -321,7 +314,14 @@
                           <option value="AD">Administrador</option>
                           <option value="G">Gerente</option>
                         </select>
-                    </div><br>
+                    </div>
+                    <div class="form-group">
+                      <label > Ocupacion</label>
+                      <select name="ocupacion" id="ocupacion" class="form-control">
+                        <option value="O">Ocupado</option>
+                        <option value="D">Desocupado</option>
+                      </select>
+                  </div><br>
                     <div class="row  justify-content-center m-auto">
                         <div class="col">
                         <button type="button" id="borrar" style="border-style:none; background-color: white;" ><img  src="img/borrar.png"></button>
@@ -336,6 +336,60 @@
             
         </div>
     </div>
+</div> 
+<!-- MODAL -->
+<div class="modal fade " id="myModal2" style="padding-top: 4rem;" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- CONTENIDO DEL MODAL-->
+  <div class="col-9 modal-content">
+      <div class="modal-header"  style="padding:35px 50px;">
+          
+          <h4> Usuario</h4>
+      </div>
+      <div class="modal-body text-start " style="padding:40px 50px;">
+          <form  method="POST" action="">
+              <div class="form-group">
+                  <label > Id</label>
+                  <input type="number"  class="form-control" id="id1" name="id1" placeholder="1" disabled >
+              </div>
+              <div class="form-group">
+                  <label > Nombre y Apellido</label>
+                  <input type="text" class="form-control" id="nmb_comp1" name="nmb_comp1" placeholder="Nombre Apellido">
+              </div>
+              <div class="form-group">
+                  <label > Email</label>
+                  <input type="text" class="form-control" id="email1" name="email1" placeholder="user@email.com">
+              </div>
+              <div class="form-group">
+                  <label > Password</label>
+                  <input type="password" class="form-control" id="contra1" name="contra1" placeholder="*****">
+              </div>
+              <div class="form-group">
+                  <label > Tipo</label>
+                  <select name="tipo_user1" id="tipo_user1" class="form-control">
+                    <option value="AD">Administrador</option>
+                    <option value="G">Gerente</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label > Ocupacion</label>
+                <select name="ocupacion1" id="ocupacion1" class="form-control">
+                  <option value="O">Ocupado</option>
+                  <option value="D">Desocupado</option>
+                </select>
+            </div><br>
+              <div class="row  justify-content-center m-auto">
+                  
+                  <div class="col ">
+                  <button type="button" id="agregar" style="border-style:none; background-color: white;"><img src="img/guardar.png"></button>
+                  </div>
+              </div>
+              </form>
+      </div>
+      
+  </div>
+</div>
 </div> 
 
 
