@@ -57,21 +57,25 @@
                                                 <input name="localizacion" type="text" id="localizacion" placeholder="" class="form-control">        
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row ">
                                             <div class="col-6">                                        
                                                 <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
-                                                <input name="capacidad_max" type="text" id="capacidad_max" placeholder="" class="form-control">        
+                                                <input name="capacidad_max" type="text" id="capacidad_max" placeholder="" class="form-control">   
+                                            </div>
+                                            <div class="col-6 align-self-end">                                        
+                                                <select class="form-control altura" name="id_user" id="id_user">
+                                                    <option  name="id_userOpt" value="0">id encargado</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-6">                                        
+                                             <!--<div class="col-6">                                        
                                                 <label for="texto de ejemplo" class="form-label">encargado</label>
                                                 <input name="encargado" type="text" id="encargado" placeholder="" class="form-control">        
-                                            </div>
-                                            <div class="col-6">                                        
-                                                <label for="texto de ejemplo" class="form-label">id encargado</label>
-                                                <input name="id_user" type="text" id="id_user" placeholder="" class="form-control">        
-                                            </div>
+                                            </div>-->
+                                            
+                                            <!--<label for="texto de ejemplo" class="form-label"></label>
+                                           <input name="" type="text"  placeholder="" class="form-control"> -->    
                                         </div>
                                     </div>
                                 </form>    
@@ -166,6 +170,7 @@
                     </div>  
                 </div>
             </div>
+              
             <div class="col-2">
                 <!-- The Modal -->
                 <div class="modal fade" id="modalDelete">
@@ -272,7 +277,23 @@
 
 
         
-
+        //Funcion para agrgar los IDs de usuario al select del modal
+        $("#botonModal").click(function(){
+            $.ajax({
+                url:"ConsultaId.php",
+                type:"GET",
+                dataType:"json",
+                success: function(respuesta){
+                    var opt = 1
+                        $.each(respuesta, function(key, value){
+                            
+                        $("#id_user").append(
+                            "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.id_user+"</option>"
+                        )
+                    })
+                }
+            })
+        })
 
         //jquery envio de datos del formulario a php(con metodo $.ajax)
         // console.log("pagina lista")
@@ -301,9 +322,9 @@
                         "<td class='align-middle xd'>"+value.localizacion+"</td>"+
                         "<td class='align-middle xd'>"+value.capacidad_max+"</td>"+
                         "<td class='align-middle xd'>"+value.encargado+"</td>"+
-                        "<td class='align-middle xd'>"+value.id_user+"</td>"+
+                        "<td class='align-middle xd'>"+"<button class='btn text-center' name='tablaUsuarios' id='tablaUsuarios"+fv+"'>"+value.id_user+"</button>"+"</td>"+
                         "<td class='align-middle xd'>"+"<button class='btn text-center' id='edit"+fv+"' data-bs-toggle='modal' data-bs-target='#modalEdit' >"+"<img class='iconsize xd' src='../../img/IconoLapiz.png'>"+"</button>"+"</td>"+
-                        "<td class='align-middle xd'>"+"<button class='btn text-center' id='delete"+fv+"' data-bs-toggle='modal' data-bs-target='#modalDelete' >"+"<img class='iconsize xd' src='../../img/IconoBasura.png'>"+"</td>"+
+                        "<td class='align-middle xd'>"+"<button class='btn text-center' id='delete"+fv+"' data-bs-toggle='modal' data-bs-target='#modalDelete' >"+"<img class='iconsize xd' src='../../img/IconoBasura.png'>"+"</button>"+"</td>"+
                         "</tr>") 
 
                         $("#edit"+fv).click(function(){
@@ -583,7 +604,7 @@
 
 .altura
 {
-    height: 40px;
+    height: 38px;
 }
 
 
