@@ -149,9 +149,10 @@
                                                 <input name="capacidad_maxEdit" type="text" id="capacidad_maxEdit" placeholder="" class="form-control">  
                                             </div>
                                             <div class="col-6">                                        
-                                                    <label for="texto de ejemplo" class="form-label">id encargado</label>
-                                                    <input name="id_userEdit" type="text" id="id_userEdit" placeholder="" class="form-control">        
-                                                </div>      
+                                                <label for="texto de ejemplo" class="form-label">ID Encargado</label>                                 
+                                                <select class="form-control altura" name="id_userEdit" id="id_userEdit">
+                                                </select>        
+                                            </div>      
                                         </div>   
                                     </div>
                                 </div>
@@ -372,8 +373,22 @@
                             //$("#encargdoEdit").val(value.encargado)
                             //$("#encargdoEdit").attr('placeholder', value.encargado)
                             
-                            $("#id_userEdit").val(value.id_user)
-                            $("#id_userEdit").attr('placeholder', value.id_user)
+
+                          
+                                
+                                $.ajax({
+                                    url:"ConsultaId.php",
+                                    type:"GET",
+                                    dataType:"json",
+                                    success: function(respuesta){
+                                            $.each(respuesta, function(key, value){
+                                                
+                                                $("#id_userEdit").append(
+                                                "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.id_user+"</option>"
+                                            )
+                                        })
+                                    }
+                                })
 
                             $("#editData").click(function(){
 
