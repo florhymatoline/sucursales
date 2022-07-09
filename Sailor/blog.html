@@ -232,12 +232,13 @@
         });
         
         $('#enviar').click(function(){
+
           var id=$('#id').val();
           var nmb=$('#nmb_comp').val();
-        var eml=$('#email').val();
-        var ps=$('#contra').val();
-        var us=$('#tipo_user').val();
-        var oc=$('#ocupacion').val();
+          var eml=$('#email').val();
+          var ps=$('#contra').val();
+          var us=$('#tipo_user').val();
+          var oc=$('#ocupacion').val();
 
             $.ajax({
                 type:"POST",

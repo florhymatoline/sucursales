@@ -179,25 +179,25 @@
     //AGREGAR USUARIO NUEVO
     $('#agregar').click(function(){
         
-        var su=$('#sucursal').val();
-        var loc=$('#localizacion').val();
-        var cm=$('#capacidad_max').val();
-        var us=$('#id_user').val();
+        var su=$('#sucursal1').val();
+        var loc=$('#localizacion1').val();
+        var cm=$('#capacidad_max1').val();
+        var us=$('#id_user1').val();
         
     
             $.ajax({
                 type:"POST",
                 url:"agregar-s.php",
-                data: {"sucursal": su, "localizacion": loc, "capacidad_max":cm,  "id_user":us},
+                data: {"sucursal1": su, "localizacion1": loc, "capacidad_max1":cm,  "id_user1":us},
                 dataType: "json",
             });
             
-            $('#myModal').modal('hide')
+            $('#myModal1').modal('hide')
             alert("REALIZADO")
-            $('#sucursal').val('');
-            $('#localizacion').val('');
-            $('#capacidad_max').val('');
-            $('#id_user').val('');
+            $('#sucursal1').val('');
+            $('#localizacion1').val('');
+            $('#capacidad_max1').val('');
+            $('#id_user1').val('');
             
         });
 
@@ -271,7 +271,7 @@
 
             
 //BOTON MODAL DE AGREGAR USUARIO
-        $('#myBtn').click(function(){
+        $('#myBtn1').click(function(){
                 $('#myModal').modal('show');
         });
 
@@ -327,7 +327,7 @@
 </div> 
 
 <!-- MODAL DE AGREGAR-->
-<div class="modal fade " id="myModal" style="padding-top: 4rem;" role="dialog">
+<div class="modal fade " id="myModal1" style="padding-top: 4rem;" role="dialog">
   <div class="modal-dialog">
 
   <!-- CONTENIDO DEL MODAL-->
@@ -340,23 +340,23 @@
           <form  method="POST" action="">
               <div class="form-group">
                   <label > Id</label>
-                  <input type="number"  class="form-control" id="id" name="id" placeholder="1" disabled >
+                  <input type="number"  class="form-control" id="id1" name="id1" placeholder="1" disabled >
               </div>
               <div class="form-group">
                   <label > Sucursal</label>
-                  <input type="text" class="form-control" id="sucursal" name="sucursal" placeholder="Sucursal">
+                  <input type="text" class="form-control" id="sucursal1" name="sucursal1" placeholder="Sucursal">
               </div>
               <div class="form-group">
                   <label > Localización</label>
-                  <input type="text" class="form-control" id="localizacion" name="localizacion" placeholder="Ubicacion 123">
+                  <input type="text" class="form-control" id="localizacion1" name="localizacion1" placeholder="Ubicacion 123">
               </div>
               <div class="form-group">
                   <label > Capacidad Maxíma</label>
-                  <input type="number" min="1" class="form-control" id="capacidad_max" name="capacidad_max" placeholder="100">
+                  <input type="number" min="1" class="form-control" id="capacidad_max1" name="capacidad_max1" placeholder="100">
               </div>
             <div class="form-group">
               <label > Usuario</label>
-              <input type="text"  class="form-control" id="id_user" name="id_user" placeholder="Usuario123"  >
+              <input type="text"  class="form-control" id="id_user1" name="id_user1" placeholder="Usuario123"  >
           </div><br>
               <div class="row  justify-content-center m-auto">
                   <div class="col ">
