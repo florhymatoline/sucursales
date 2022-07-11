@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                  <h1>Consulta a base de datos</h1>      
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <input class="form-control altura" type="button" id="ordenarNomb" value="mostrar">
+            </div>
+            <!--<div class="col-2">
+                <select class="form-control altura" id="orderBy" value="0" placeholder="ordenar por">
+                    <option class="form-control altura" value="0">Ordenar por...</option>
+                    <option class="form-control altura" value="1">Fecha de nacimiento ↑</option>
+                    <option class="form-control altura" value="2">Fecha de nacimiento ↓</option>
+                    <option class="form-control altura" value="3">Id ↑</option>
+                    <option class="form-control altura" value="4">Id ↓</option>
+                </select>
+            </div>-->
+            <div class="col-2">
+                <button id="botonModal" type="button" class="btn text-center btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">+</button>
+            </div>
+                <!-- The Modal -->
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Añadir datos</h4>
+                                <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                        
+                            <!-- Modal body -->
+                            <div class="container"> 
+                                <form id="formAdd">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">Nombre de sucursal</label>
+                                                <input name="sucursal" type="text" id="sucursal" placeholder="" class="form-control">        
+                                            </div>
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">localizacion</label>
+                                                <input name="localizacion" type="text" id="localizacion" placeholder="" class="form-control">        
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
+                                                <input name="capacidad_max" type="text" id="capacidad_max" placeholder="" class="form-control">   
+                                            </div>
+                                            <div class="col-6 align-self-end">       
+                                                <label for="texto de ejemplo" class="form-label">Encargado</label>                                 
+                                                <select class="form-control altura" name="id_user" id="id_user">
+                                                    <option  name="id_userOpt" value="0">id encargado</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                             <!--<div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">encargado</label>
+                                                <input name="encargado" type="text" id="encargado" placeholder="" class="form-control">        
+                                            </div>-->
+                                            
+                                            <!--<label for="texto de ejemplo" class="form-label"></label>
+                                           <input name="" type="text"  placeholder="" class="form-control"> -->    
+                                        </div>
+                                    </div>
+                                </form>    
+                            </div>
+
+                            <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button id="closeModal2" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button id="addData" type="button" class="btn btn-primary xd" data-bs-dismiss="modal">enviar</button>
+                        </div>        
+                    </div>
+                </div>      
+            </div>    
+        </div>
+        <div class="row">
+            <div class="col">   
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class='xd'>ID</th>
+                            <th class='xd'>Sucursal</th>
+                            <th class='xd'>Localización</th>
+                            <th class='xd'>Capacidad maxima</th>
+                            <th class='xd'>ID encargado</th>
+                            <th class='xd'>Editar</th>
+                            <th class='xd'>Borrar</th>
+                        </tr>
+                    </thead>
+                    <tbody  id="tabla1">
+                       
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+            <div class="col-2">
+                <!-- The Modal -->
+                <div class="modal fade" id="modalEdit">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="formEdit">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <div class="col-5">
+                                        <h4 class="modal-title">Editar datos</h4>
+                                    </div>
+                                    <div class="col-2">
+                                        <label>id</label><input type="text" class="form-control" name="id_sucursalEdit" id="id_sucursalEdit" readonly>
+                                    </div>
+                                    <div class="col-5 text-end">  
+                                        <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                </div>
+                        
+                                <!-- Modal body -->
+                                <div class="container"> 
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">Nombre de sucursal</label>
+                                                <input name="sucursalEdit" type="text" id="sucursalEdit" placeholder="" class="form-control">        
+                                            </div>
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">localizacion</label>
+                                                <input name="localizacionEdit" type="text" id="localizacionEdit" placeholder="" class="form-control">        
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">                                        
+                                                <label for="texto de ejemplo" class="form-label">Encargado Actual</label>                                 
+                                                <Input class="form-control altura" type="text" name="id_userEditAct" id="id_userEditAct" readonly>        
+                                            </div>
+                                            <div class="col-4">                                        
+                                                <label for="texto de ejemplo" class="form-label">Encargado Nuevo</label>                                 
+                                                <select class="form-control altura" name="id_userEditNew" id="id_userEditNew">
+                                                </select>        
+                                            </div>          
+                                            <div class="col-2">                                        
+                                                <label for="texto de ejemplo" class="form-label">capacidad</label>
+                                                <input name="capacidad_maxEdit" type="text" id="capacidad_maxEdit" placeholder="" class="form-control">  
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </form>  
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button id="closeModal2" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                <button id="editData" type="button" class="btn btn-primary xd" >enviar</button>
+                            </div>        
+                        </div>
+                    </div>  
+                </div>
+            </div>
+              
+            <div class="col-2">
+                <!-- The Modal -->
+                <div class="modal fade" id="modalDelete">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="formDelete">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <div class="col-9">
+                                        <h6 class="modal-title">Esta seguro que quiere eliminar los siguientes datos de forma permanente</h6>
+                                    </div>
+                                    <div class="col-2 text-start">
+                                        <label>id</label><input type="text" class="form-control" name="id_sucursalDelete" id="id_sucursalDelete" readonly>
+                                    </div>
+                                    <div class="col text-end">  
+                                        <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                </div>
+                        
+                                <!-- Modal body -->
+                                <div class="container"> 
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">Nombre de sucursal</label>
+                                                <input name="sucursalDelete" type="text" id="sucursalDelete" placeholder="" class="form-control" readonly>        
+                                            </div>
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">localizacion</label>
+                                                <input name="localizacionDelete" type="text" id="localizacionDelete" placeholder="" class="form-control" readonly>        
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
+                                                <input name="capacidad_maxDelete" type="text" id="capacidad_maxDelete" placeholder="" class="form-control" readonly>        
+                                            </div>
+                                            <div class="col-6">                                        
+                                                <label for="texto de ejemplo" class="form-label">id encargado</label>
+                                                <input name="id_userDelete" type="text" id="id_userDelete" placeholder="" class="form-control" readonly>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>  
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button id="closeModal3" type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                                <button id="deleteData" type="button" class="btn btn-danger xd" data-bs-dismiss="modal">eliminar</button>
+                            </div>        
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="modalUser">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title col-5">Datos del usuario</h5>
+                            <div class="col-2 text-start">
+                            <label>id</label><input type="text" class="form-control" name="id_userCons" id="id_userCons" readonly>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Nombre Completo</label>
+                                    <input name="nmb_comp" type="text" id="nmb_compCons" class="form-control" value="" readonly>        
+                                </div>
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Email</label>
+                                    <input name="email" type="text" id="emailCons" class="form-control" value="" readonly>        
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Contraseña</label>
+                                    <input name="contra" type="password" id="contraCons" class="form-control" value="" readonly>        
+                                </div>
+                                <div class="col-6">                                        
+                                    <label for="texto de ejemplo" class="form-label">Tipo de usuario</label>
+                                    <input name="tipo_user" type="text" id="tipo_userCons" class="form-control" value="" readonly>        
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+</body>
+</html>
+
+<script>
+
+    
+    $(document).ready(function(){
+
+        /*
+       $("#botonModal").click(function(){
+           $("#myModal").show()//fadeIn(200)//show()//
+       })
+       $("#closeModal").click(function(){
+           $("#myModal").hide()//fadeOut(200)//
+       })
+       $("#closeModal2").click(function(){
+           $("#myModal").hide()//fadeOut(200)//hide()//
+       })
+       */
+
+
+       /*----------Formulario del modal para añadir datos----------*/
+       $("#addData").click(function(){
+        var datos = $('#formAdd').serialize();
+			$.ajax({
+				type:"POST",
+				url:"CrudSucursalesAdd.php",
+				data: datos,
+				success:function(r){
+					if(r==11){
+						alert("agregado con exito");
+					}else{
+						alert("Fallo ");
+					}
+				}
+			})
+
+        })
+
+      
+        //Funcion para agrgar los IDs de usuario al select del modal
+        $("#botonModal").click(function(){
+            $("#id_user").empty()
+            $.ajax({
+                url:"ConsultaId.php",
+                type:"GET",
+                dataType:"json",
+                success: function(respuesta){
+
+                        $.each(respuesta, function(key, value){
+                        $("#id_user").append(
+                            "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.nmb_comp+"</option>"
+                        )
+                    })
+                }
+            })
+        })
+
+        //jquery envio de datos del formulario a php(con metodo $.ajax)
+        // console.log("pagina lista")
+        $("#ordenarNomb").click(function(){
+           //console.log("keypress")
+            $("#tabla1").empty()
+            //var opt = $("#orderBy").val()
+            var p = $("#ordenarNomb").val()
+
+            if (p != ""){
+               //console.log("if")
+               
+            $.ajax({
+                url: "CrudSucursales.php", //action
+                type: "POST", //method
+                data: {"sucursal": p},
+                dataType: "json",
+                success: function(respuesta){
+                 //console.log("each")
+                 var fv = 1
+                 
+                    $.each(respuesta, function(key, value){
+                        
+                        $("#tabla1").append("<tr id='fila"+fv+"'  >"+
+                        "<td class='align-middle xd'>"+value.id_sucursal+"</td>"+
+                        "<td class='align-middle xd'>"+value.sucursal+"</td>"+
+                        "<td class='align-middle xd'>"+value.localizacion+"</td>"+
+                        "<td class='align-middle xd'>"+value.capacidad_max+"</td>"+
+                        //"<td class='align-middle xd'>"+value.encargado+"</td>"+
+                        "<td class='align-middle xd'>"+"<button class='btn text-center' name='tablaUsuarios' id='tablaUsuarios"+fv+"' data-bs-toggle='modal' data-bs-target='#modalUser'>"+value.id_user+"</button>"+"</td>"+
+                        "<td class='align-middle xd'>"+"<button class='btn text-center' id='edit"+fv+"' data-bs-toggle='modal' data-bs-target='#modalEdit' >"+"<img class='iconsize xd' src='../../img/IconoLapiz.png'>"+"</button>"+"</td>"+
+                        "<td class='align-middle xd'>"+"<button class='btn text-center' id='delete"+fv+"' data-bs-toggle='modal' data-bs-target='#modalDelete' >"+"<img class='iconsize xd' src='../../img/IconoBasura.png'>"+"</button>"+"</td>"+
+                        "</tr>") 
+
+                        $("#edit"+fv).click(function(){
+
+                            //alert("id: " + value.id_sucursal)
+                            
+                            $("#id_sucursalEdit").val(value.id_sucursal)
+                            $("#id_sucursalEdit").attr('placeholder', value.id_sucursal)
+
+                            $("#sucursalEdit").val(value.sucursal)
+                            $("#sucursalEdit").attr('placeholder', value.sucursal)
+
+                            $("#localizacionEdit").val(value.localizacion)
+                            $("#localizacionEdit").attr('placeholder', value.localizacion)
+                            
+                            $("#capacidad_maxEdit").val(value.capacidad_max)
+                            $("#capacidad_maxEdit").attr('placeholder', value.capacidad_max)
+                            
+                            $("#id_userEditAct").val(value.nmb_comp)
+                                
+
+                            
+                                $.ajax({
+                                    url:"ConsultaId.php",
+                                    type:"GET",
+                                    dataType:"json",
+                                    success: function(respuesta){
+                                        $("#id_userEditNew").empty()
+                                            $.each(respuesta, function(key, value){
+                                                
+                                                
+                                                $("#id_userEditNew").append(
+                                                "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.nmb_comp+"</option>"
+                                            )
+                                        })
+                                    }
+                                })
+
+                            $("#editData").click(function(){
+
+                                var editarDatos = $("#formEdit").serialize();
+                                $.ajax({
+                                url: "CrudSucursalesEdit.php",
+                                type: "POST",
+                                data: editarDatos,
+                                success: function(r){
+                                    if (r == 111) {
+                                        
+                                        alert("datos modificados con exito")
+                                        return false;
+                                        
+                                    }
+                                    
+                                    }
+
+                                })
+
+                            })
+                            
+                        })
+
+                        /*----------funcion para eliminar datos----------*/
+                        $("#delete"+fv).click(function(){
+                            
+                            $("#id_sucursalDelete").val(value.id_sucursal)
+                            $("#id_sucursalDelete").attr('placeholder', value.id_sucursal)
+
+                            $("#sucursalDelete").val(value.sucursal)
+                            $("#sucursalDelete").attr('placeholder', value.sucursal)
+
+                            $("#localizacionDelete").val(value.localizacion)
+                            $("#localizacionDelete").attr('placeholder', value.localizacion)
+                            
+                            $("#capacidad_maxDelete").val(value.capacidad_max)
+                            $("#capacidad_maxDelete").attr('placeholder', value.capacidad_max)
+                            
+                            //$("#encargadoDelete").val(value.encargado)
+                            //$("#encargadoDelete").attr('placeholder', value.encargado)
+                            
+                            $("#id_userDelete").val(value.id_user)
+                            $("#id_userDelete").attr('placeholder', value.id_user)
+
+                            $("#deleteData").click(function(){
+
+                                var eliminarDatos = $("#formDelete").serialize();
+                                $.ajax({
+                                url: "CrudSucursalesDelete.php",
+                                type: "POST",
+                                data: eliminarDatos,
+                                success: function(r){
+                                    if (r == 1) {
+                                        
+                                        alert("datos Eliminados")
+                                        return false;
+                                        
+                                    }
+                                    
+                                    }
+
+                                })
+
+                            })
+
+                        })
+
+                        $("#tablaUsuarios"+fv).click(function(){
+
+                            $("#id_userCons").val(value.id_user)
+
+                            $("#nmb_compCons").val(value.nmb_comp)
+
+                            $("#emailCons").val(value.email)
+
+                            $("#contraCons").val(value.contra)
+
+                            $("#tipo_userCons").val(value.tipo_user)
+                             
+                        })
+
+                        fv = fv + 1
+                        
+                    })
+                    
+                }
+                
+            })
+            }
+            
+        })
+        /*
+        $("#orderBy").change(function(){
+           //console.log("keypress")
+            $("#tabla1").empty()
+            var opt = $("#orderBy").val()
+            var p = $("#ordenarNomb").val()
+            if (p != ""){
+               //console.log("if")
+            $.ajax({
+                url: "CrudSucursales.php", //action
+                type: "POST", //method
+                data: {"alumnos3": p, "opcion": opt},
+                dataType: "json",
+                success: function(respuesta){
+                 //console.log("each")
+                 var fv = 1
+
+                    $.each(respuesta, function(key, value){ 
+                        $("#tabla1").append("<tr>"+
+                        "<td class='xd'>"+value.id_sucursal+"</td>"+
+                        "<td class='xd'>"+value.sucursal+"</td>"+
+                        "<td class='xd'>"+value.localizacion+"</td>"+
+                        "<td class='xd'>"+value.capacidad_max+"</td>"+
+                        "<td class='xd'>"+value.encargado+"</td>"+
+                        "<td class='xd'>"+value.id_user+"</td>"+
+                        "<td class='xd'>"+"<button class='btn text-center' id='edit"+fv+"' data-bs-toggle='modal' data-bs-target='#modalEdit' >"+"<img class='iconsize xd' src='../../img/IconoLapiz.png'>"+"</button>"+"</td>"+
+                        "<td class='xd'>"+"<button class='btn text-center' id='delete"+fv+"' data-bs-toggle='modal' data-bs-target='#modalDelete' >"+"<img class='iconsize xd' src='../../img/IconoBasura.png'>"+"</td>"+
+                        "</tr>") 
+
+                        $("#edit"+fv).click(function(){
+                           
+                            //alert("id: " + value.id_sucursal)
+                            
+                            $("#id_sucursalEdit").val(value.id_sucursal)
+                            $("#id_sucursalEdit").attr('placeholder', value.id_sucursal)
+
+                            $("#sucursalEdit").val(value.sucursal)
+                            $("#sucursalEdit").attr('placeholder', value.sucursal)
+
+                            $("#localizacionEdit").val(value.localizacion)
+                            $("#localizacionEdit").attr('placeholder', value.localizacion)
+                            
+                            $("#capacidad_maxEdit").val(value.capacidad_max)
+                            $("#capacidad_maxEdit").attr('placeholder', value.capacidad_max)
+                            
+                            $("#encargdoEdit").val(value.encargado)
+                            $("#encargdoEdit").attr('placeholder', value.encargado)
+                            
+                            $("#id_userEdit").val(value.id_user)
+                            $("#id_userEdit").attr('placeholder', value.id_user)
+
+                            $("#editData").click(function(){
+
+                                var editarDatos = $("#formEdit").serialize();
+                                $.ajax({
+                                url: "BackendAjax5_EditData.php",
+                                type: "POST",
+                                data: editarDatos,
+                                success: function(r){
+                                    if (r == 1) {
+                                        
+                                        alert("datos modificados con exito")
+                                        return false;
+
+                                    }
+                                    
+                                    }
+
+                                })
+
+                            })
+                            
+                        })
+
+                        /*----------funcion para eliminar datos----------
+                        $("#delete"+fv).click(function(){
+                            
+                            $("#id_sucursalDelete").val(value.id_sucursal)
+                            $("#id_sucursalDelete").attr('placeholder', value.id_sucursal)
+
+                            $("#sucursalDelete").val(value.sucursal)
+                            $("#sucursalDelete").attr('placeholder', value.sucursal)
+
+                            $("#localizacionDelete").val(value.localizacion)
+                            $("#localizacionDelete").attr('placeholder', value.localizacion)
+                            
+                            $("#capacidad_maxDelete").val(value.capacidad_max)
+                            $("#capacidad_maxDelete").attr('placeholder', value.capacidad_max)
+                            
+                            $("#encargadoDelete").val(value.encargado)
+                            $("#encargadoDelete").attr('placeholder', value.encargado)
+                            
+                            $("#id_userDelete").val(value.id_user)
+                            $("#id_userDelete").attr('placeholder', value.id_user)
+
+                            $("#deleteData").click(function(){
+
+                                var eliminarDatos = $("#formDelete").serialize();
+                                $.ajax({
+                                url: "BackendAjax5_DeleteData.php",
+                                type: "POST",
+                                data: eliminarDatos,
+                                success: function(r){
+                                    if (r == 1) {
+                                        
+                                        alert("datos Eliminados")
+                                        return false;
+                                        
+                                    }
+                                    
+                                    }
+
+                                })
+
+                            })
+
+                        })
+
+                        fv = fv + 1
+
+                    })
+                   
+                }
+                
+            })
+            }
+        })*/
+
+        
+
+        /*
+        $("#orderBy").change(function(){
+            var opt = $("#opcion").val()
+            if (opt != 0)
+            {
+            $.ajax({
+                url: "BackendAjax.php", //action
+                type: "POST", //method
+                data: {"opcion": opt},
+                dataType: "json",
+                success: function(respuesta){
+                 //console.log("each")
+                    $.each(respuesta, function(key, value){ 
+                        $("#tabla1").append("<tr>"+
+                        "<td class='xd'>"+value.id_sucursal+"</td>"+
+                        "<td class='xd'>"+value.sucursal+"</td>"+
+                        "<td class='xd'>"+value.localizacion+"</td>"+
+                        "<td class='xd'>"+value.capacidad_max+"</td>"+
+                        "<td class='xd'>"+value.encargado+"</td>"+
+                        "<td class='xd'>"+value.id_user+"</td>"+
+                        "</tr>") 
+
+                    })
+                   
+                }
+                
+            })
+            }
+        })
+        */
+   })
+
+</script>
+<style>
+.xd
+{
+    text-align: center;
+
+}
+
+.iconsize
+{
+    height: 50px;
+    width: 50px;
+}
+
+.altura
+{
+    height: 38px;
+}
+
+
+</style>
