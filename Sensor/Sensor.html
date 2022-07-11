@@ -9,8 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-<body>
-    
+<body>    
+<!--    
 <div class="container">
 
     <button type="button" onclick="intervalo()" class="btn btn-primary">Button</button>
@@ -18,6 +18,28 @@
     <input type="number" value="0" class="form-control" name="" id="ingreso">
 
 </div>
+-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+              <button type="button" name="ingreso" id="ingreso" class="btn btn-primary">Ingreso</button>
+        </div>
+        <div class="col-1">
+            <button type="button" name="egreso" id="egreso" class="btn btn-danger">Ingreso</button>
+        </div>
+        <div class="col-2">
+            <input type="date" name="fecha" id="fecha" class="form-control">
+        </div>
+        <div class="col-2">
+            <input type="time" name="hora" id="hora" class="form-control">
+        </div>
+        <div class="col-2">
+            <select name="sucursal" id="sucursal"></select>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -26,7 +48,76 @@
 
 <Script>
 
+$("#egreso").attr('disabled', true)
 
+$("#ingreso").click(function(){
+    var i_e = i
+
+    $("#ingreso").attr('disabled', true)
+    $("#egreso").attr('disabled', false)
+
+    //recupera la fecha
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    var fecha = yyyy + '-' + mm + '-' + dd;//formato que se muestra en pantalla
+
+    console.log(formattedToday)
+    $("#fecha").val(fecha)
+
+    //recupera la hora
+    var now = new Date(Date.now());
+    var hora = now.getHours() + ":" + now.getMinutes()
+
+    console.log(hora)
+    $("#hora").val(hora)
+   
+
+})
+
+$("#egreso").click(function(){
+    var i_e = e
+    
+    $("#ingreso").attr('disabled', false)
+    $("#egreso").attr('disabled', true)
+
+    //recupera la fecha
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    var fecha = yyyy + '-' + mm + '-' + dd;//formato que se muestra en pantalla
+
+    console.log(formattedToday)
+    $("#fecha").val(fecha)
+
+    //recupera la hora
+    var now = new Date(Date.now());
+    var hora = now.getHours() + ":" + now.getMinutes()
+
+    console.log(hora)
+    $("#hora").val(hora)
+
+    $.ajax({
+    url: "RegistroIoE.php", //action
+    type: "POST", //method
+    data: {"fecha": fecha, "hora": hora, "i_e": i_e},
+    dataType: "json",
+    })
+      
+})
+/*
     function intervalo()
     {
     var ingreso = $("#ingreso")
@@ -43,6 +134,7 @@
     }
     }, 1000)
     }
+*/
 
 
 </Script>
