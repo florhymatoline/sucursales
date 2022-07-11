@@ -9,4 +9,16 @@ require 'conexion.php';
 $q="INSERT INTO sucursales (sucursal,localizacion,capacidad_max,id_user)VALUES ('$su','$l','$cp','$us')";
 $r= mysqli_query($con,$q);
 
+$c="UPDATE usuarios SET ocupacion='O' WHERE id_user='$us'";
+$e= mysqli_query($con,$c);
+if ($r && $e){
+
+    echo ('1');
+    
+    }
+        else{
+    
+    echo ('0');
+    
+    }
 ?>

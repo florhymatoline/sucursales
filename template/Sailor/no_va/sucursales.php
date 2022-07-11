@@ -13,9 +13,9 @@ else{header('location: index.html');
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Blog - Sailor Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Nodo Tech</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -46,43 +46,22 @@ else{header('location: index.html');
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center">
+  <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">Sailor</a></h1>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
+<h1 class="logo me-auto"><a href="#">Node Tech</a></h1>
 
-          <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="about.html">About</a></li>
-              <li><a href="team.html">Team</a></li>
-              <li><a href="testimonials.html">Testimonials</a></li>
+<nav id="navbar" class="navbar">
+  <ul>
+    <li><a href="inicio.html">Home</a></li>
+    <li><a href="sucursales.php">Sucursales</a></li>
+    <li><a href="usuarios.php">Usuarios</a></li>
+    <li><a href="">Consultas</a></li>
+    <a href="logout.php" class="getstarted">LOG OUT</a>
+  </ul>
+  <i class="bi bi-list mobile-nav-toggle"></i>
+</nav><!-- .navbar -->
 
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
-          <li><a href="blog.html" class="active">Blog</a></li>
-
-          <li><a href="contact.html">Contact</a></li>
-          <a href="logout.php" class="getstarted">LOG OUT</a>
-          
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
+</div>
   </header><!-- End Header -->
 
   <main id="main">
@@ -137,7 +116,7 @@ else{header('location: index.html');
                     <td>Localización</td>
                     <td>Capacidad Maxíma</td>
                     <td>Usuario</td>
-                    <td><button id="myBtn" style="border-style:none; background-color: rgb(252, 252, 252);" ><img src="img/agregar.png" width="30px" alt=""></button></td>
+                    <td><button id="myBtn1" style="border-style:none; background-color: rgb(252, 252, 252);" ><img src="img/agregar.png" width="30px" alt=""></button></td>
                     
                 </thead>
                 <tbody id="idTB1">
@@ -320,17 +299,15 @@ else{header('location: index.html');
                     <select name="id_user" id="id_user" class="form-control">
                     <?php
                             require'conexion.php';
-                            $q="SELECT * FROM obrasocial";
+                            $q="SELECT * FROM usuarios WHERE ocupacion ='D'";
                             $r=mysqli_query($con, $q);
                             
                             while($valores=mysqli_fetch_array($r)){
-                                
-                                echo'<option>'.$valores['tipo'];
+                            echo '<option value="'.$valores['id_user'].'">'.$valores['nmb_comp'].'</option>'; 
+                              
                     
                             }
-                            ?>
-
-                      
+                    ?>
                       </select>
                     <!--<input type="text"  class="form-control" id="id_user" name="id_user" placeholder="Usuario123"  >-->
                 </div><br>
@@ -380,7 +357,18 @@ else{header('location: index.html');
               </div>
             <div class="form-group">
               <label > Usuario</label>
-              <input type="text"  class="form-control" id="id_user1" name="id_user1" placeholder="Usuario123"  >
+              <select name="id_user1" id="id_user1" class="form-control">
+                    <?php
+                            require'conexion.php';
+                            $q="SELECT * FROM usuarios WHERE ocupacion ='D'";
+                            $r=mysqli_query($con, $q);
+                            while($valores=mysqli_fetch_array($r)){
+                            echo '<option value="'.$valores['id_user'].'">'.$valores['nmb_comp'].'</option>'; 
+                              
+                    
+                            }
+                    ?>
+                      </select>
           </div><br>
               <div class="row  justify-content-center m-auto">
                   <div class="col ">

@@ -13,11 +13,11 @@
     if (mysqli_num_rows($r)>0) {
         session_start();
         $_SESSION ['nombre-usuarios']=$u;
-        header("location: usuarios.php");
+        header("location: inicio.html");
     }
     else
     {
-        header("location: index.html");
+        header("location: index1git .html");
         
     }
 

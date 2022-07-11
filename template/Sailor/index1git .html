@@ -28,12 +28,10 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: Sailor - v4.7.0
-  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!--LINKS MODAL-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -60,12 +58,15 @@
                     </li>
                     <li><a href="services.html">Servicios</a></li>
                     <li><a href="portfolio.html">Muestras</a></li>
+                    
 
 
                     <li><a href="contact.html">Contacto</a></li>
-                    <li><a href="index1.html" class="getstarted">Log In</a></li>
+
+                    <button id="myBtn" class="getstarted">LOGIN</button>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
+                
             </nav>
             <!-- .navbar -->
 
@@ -73,6 +74,44 @@
     </header>
     <!-- End Header -->
 
+  <!-- MODAL -->
+  <div class="modal fade " id="myModal" style="padding-top: 4rem;" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- CONTENIDO DEL MODAL-->
+    <div class="col-9 modal-content">
+        <div class="modal-header"  style="padding:35px 50px;">
+            
+            <h4> Login</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+            <form  method="POST" action="login.php">
+                <div class="form-group">
+                    <label for="usrname"> Usuario</label>
+                    <input type="email" class="form-control"  name="email" placeholder="Usuario@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="psw"> Password</label>
+                    <input type="password" class="form-control" name="passw" placeholder="*****">
+                </div><br>
+                <div class="row  justify-content-center m-auto">
+                <button type="submit" class="btn btn-danger " id="btn-login"> Login</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+</div> 
+
+<!--JS Y JQUERY DEL MODAL-->
+<script>
+$('document').ready(function(){
+    $('#myBtn').click(function(){
+        $('#myModal').modal('show');
+    })
+})
+</script>
     <!-- ======= Hero Section ======= -->
     <section id="hero">
         <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
