@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['nombre-usuarios'])) {
+    
+}
+else{header('location: index.html');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,7 +128,7 @@
 
           </div><!-- End blog sidebar -->
 
-          <div class="col-12 bg-light text-center ">
+          <div class="col-none-12 bg-light text-center ">
                     
             <table class="table table-striped ">
                 <thead>
@@ -275,7 +283,8 @@
                 $('#myModal').modal('show');
         });
 
-    }); 
+      });
+        
   </script>
 
       <!-- MODAL -->
@@ -292,7 +301,7 @@
                 <form  method="POST" action="">
                     <div class="form-group">
                         <label > Id</label>
-                        <input type="number"  class="form-control" id="id" name="id" placeholder="1" disabled >
+                        <input type="number"  class="form-control" id="id" name="id" disabled >
                     </div>
                     <div class="form-group">
                         <label > Sucursal</label>
@@ -308,7 +317,22 @@
                     </div>
                   <div class="form-group">
                     <label > Usuario</label>
-                    <input type="text"  class="form-control" id="id_user" name="id_user" placeholder="Usuario123"  >
+                    <select name="id_user" id="id_user" class="form-control">
+                    <?php
+                            require'conexion.php';
+                            $q="SELECT * FROM obrasocial";
+                            $r=mysqli_query($con, $q);
+                            
+                            while($valores=mysqli_fetch_array($r)){
+                                
+                                echo'<option>'.$valores['tipo'];
+                    
+                            }
+                            ?>
+
+                      
+                      </select>
+                    <!--<input type="text"  class="form-control" id="id_user" name="id_user" placeholder="Usuario123"  >-->
                 </div><br>
                     <div class="row  justify-content-center m-auto">
                         <div class="col">

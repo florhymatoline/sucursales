@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['nombre-usuarios'])) {
+    
+}
+else{header('location: index.html');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -218,7 +226,7 @@
                     dataType:"json",
                     success: function(respuesta){
                         $.each(respuesta, function(key, value){
-                            $('#id').val(value.id_usuario)
+                            $('#id').val(value.id_user)
                             $('#nmb_comp').val(value.nmb_comp)
                             $('#email').val(value.email)
                             $('#contra').val(value.contra)
@@ -243,13 +251,13 @@
             $.ajax({
                 type:"POST",
                 url:"editar.php",
-                data: {"id": id,"nmb_comp": nmb, "email": eml, "tipo_user": us, "contra":ps, "ocupacion":oc},
+                data: {"id": id,"nmb_comp": nmb, "email": eml, "contra":ps, "tipo_user": us, "ocupacion":oc},
                 dataType: "json",
                 success: function(respuesta){
-                        $.each(respuesta, function(key, value){
-                          $('#myModal').modal('hide');
-                          alert("REALIZADO");
-                        });
+                        //$.each(respuesta, function(key, value){
+                          //$('#myModal').modal('hide');
+                          //alert("REALIZADO");
+                        //});
                     }
             });
             $('#myModal').modal('hide');
@@ -295,7 +303,7 @@
                 <form  method="POST" action="">
                     <div class="form-group">
                         <label > Id</label>
-                        <input type="number"  class="form-control" id="id" name="id" placeholder="1" disabled >
+                        <input type="number"  class="form-control" id="id" name="id"  disabled >
                     </div>
                     <div class="form-group">
                         <label > Nombre y Apellido</label>
