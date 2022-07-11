@@ -63,7 +63,7 @@
                                                 <input name="capacidad_max" type="text" id="capacidad_max" placeholder="" class="form-control">   
                                             </div>
                                             <div class="col-6 align-self-end">       
-                                                <label for="texto de ejemplo" class="form-label">ID Encargado</label>                                 
+                                                <label for="texto de ejemplo" class="form-label">Encargado</label>                                 
                                                 <select class="form-control altura" name="id_user" id="id_user">
                                                     <option  name="id_userOpt" value="0">id encargado</option>
                                                 </select>
@@ -144,19 +144,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-6">                                        
-                                                <label for="texto de ejemplo" class="form-label">capacidad maxima</label>
-                                                <input name="capacidad_maxEdit" type="text" id="capacidad_maxEdit" placeholder="" class="form-control">  
-                                            </div>
-                                            <div class="col-3">                                        
-                                                <label for="texto de ejemplo" class="form-label">ID Encargado Actual</label>                                 
+                                            <div class="col-4">                                        
+                                                <label for="texto de ejemplo" class="form-label">Encargado Actual</label>                                 
                                                 <Input class="form-control altura" type="text" name="id_userEditAct" id="id_userEditAct" readonly>        
                                             </div>
-                                            <div class="col-3">                                        
-                                                <label for="texto de ejemplo" class="form-label">ID Encargado Nuevo</label>                                 
+                                            <div class="col-4">                                        
+                                                <label for="texto de ejemplo" class="form-label">Encargado Nuevo</label>                                 
                                                 <select class="form-control altura" name="id_userEditNew" id="id_userEditNew">
                                                 </select>        
                                             </div>          
+                                            <div class="col-2">                                        
+                                                <label for="texto de ejemplo" class="form-label">capacidad</label>
+                                                <input name="capacidad_maxEdit" type="text" id="capacidad_maxEdit" placeholder="" class="form-control">  
+                                            </div>
                                         </div>   
                                     </div>
                                 </div>
@@ -314,11 +314,10 @@
                 type:"GET",
                 dataType:"json",
                 success: function(respuesta){
-                    var opt = 1
+
                         $.each(respuesta, function(key, value){
-                            
                         $("#id_user").append(
-                            "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.id_user+"</option>"
+                            "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.nmb_comp+"</option>"
                         )
                     })
                 }
@@ -374,7 +373,7 @@
                             $("#capacidad_maxEdit").val(value.capacidad_max)
                             $("#capacidad_maxEdit").attr('placeholder', value.capacidad_max)
                             
-                            $("#id_userEditAct").val(+value.id_user)
+                            $("#id_userEditAct").val(value.nmb_comp)
                                 
 
                             
@@ -388,7 +387,7 @@
                                                 
                                                 
                                                 $("#id_userEditNew").append(
-                                                "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.id_user+"</option>"
+                                                "<option  name='id_userOpt' value='0"+value.id_user+"'>"+value.nmb_comp+"</option>"
                                             )
                                         })
                                     }
