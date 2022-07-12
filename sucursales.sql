@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-07-2022 a las 01:01:52
+-- Tiempo de generación: 12-07-2022 a las 03:27:10
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -30,9 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `datos_diarios` (
   `id_datos` int(11) NOT NULL,
   `id_sucursal` int(11) NOT NULL,
-  `id_sensor` int(11) NOT NULL,
+  `fecha_registro` date NOT NULL,
   `cant_personas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `datos_diarios`
+--
+
+INSERT INTO `datos_diarios` (`id_datos`, `id_sucursal`, `fecha_registro`, `cant_personas`) VALUES
+(1, 0, '2022-07-11', 0),
+(2, 0, '2022-07-11', 0),
+(3, 0, '2022-07-11', 0),
+(4, 15, '2022-07-11', 0);
 
 -- --------------------------------------------------------
 
@@ -43,10 +53,19 @@ CREATE TABLE `datos_diarios` (
 CREATE TABLE `registro` (
   `id_sensor` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` int(11) NOT NULL,
+  `hora` time NOT NULL,
   `i_e` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_sucursal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `registro`
+--
+
+INSERT INTO `registro` (`id_sensor`, `fecha`, `hora`, `i_e`, `id_sucursal`) VALUES
+(1, '2022-07-11', '00:00:21', 'I', 15),
+(3, '2022-07-11', '21:32:00', 'I', 15),
+(4, '2022-07-11', '21:33:00', 'E', 15);
 
 -- --------------------------------------------------------
 
@@ -131,13 +150,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `datos_diarios`
 --
 ALTER TABLE `datos_diarios`
-  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `id_sensor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sensor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
