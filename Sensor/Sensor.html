@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>    
+<!--    
+<div class="container">
+
+    <button type="button" onclick="intervalo()" class="btn btn-primary">Button</button>
+    
+    <input type="number" value="0" class="form-control" name="" id="ingreso">
+
+</div>
+-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+              <button type="button" name="ingreso" id="ingreso" class="btn btn-primary">Ingreso</button>
+        </div>
+        <div class="col-1">
+            <button type="button" name="egreso" id="egreso" class="btn btn-danger">Egreso</button>
+        </div>
+        <div class="col-2">
+            <input type="date" name="fecha" id="fecha" class="form-control">
+        </div>
+        <div class="col-2">
+            <input type="time" name="hora" id="hora" class="form-control">
+        </div>
+        <div class="col-2">
+            <label for="">id sucursal</label>
+            <select name="sucursal" id="sucursal"><option value="0">sucursal</option></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="d-grid gap-2">
+              <button type="button"  id="registrar" class="btn btn-primary">Registrar datos diarios</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+              <label for="" class="form-label">capacidad</label>
+              <input type="text" class="form-control" name="capacidad" id="capacidad" readonly>
+        </div>
+        <div class="col-3">
+            <label for="" class="form-label">Personas en el local</label>
+            <input type="text" class="form-control" name="personas" id="personas" readonly>
+      </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
+
+<Script>
+
+
+
+
+$("#sucursal").ready(function(){
+
+    $.ajax({
+        url:"IdSucursal.php",
+        type:"GET",
+        dataType:"json",
+        success: function(respuesta){
+            $.each(respuesta, function(key, value){ 
+            $("#sucursal").append(
+            "<option name='sucursal' value='0"+value.id_sucursal+"'>"+value.id_sucursal+"</option>"
+            )})
+        }
+    })
+
+})
+
+$("#ingreso").attr('disabled', true)
+$("#egreso").attr('disabled', true)   
+$("#registrar").attr('disabled', true)   
+
+$("#sucursal").change(function(){
+    if ($("#sucursal").val() == 0)
+    {
+        $("#ingreso").attr('disabled', true)
+        $("#egreso").attr('disabled', true)        
+        $("#registrar").attr('disabled', true)   
+    }
+    else
+    {
+        $("#ingreso").attr('disabled', false)
+        $("#egreso").attr('disabled', false)        
+        $("#registrar").attr('disabled', false)   
+    }
+})
+
+$("#egreso").attr('disabled', true)
+
+$("#ingreso").click(function(){
+    var i_e = "I"
+    var id_sucursal = $("#sucursal").val()
+
+   // $("#ingreso").attr('disabled', true)
+    //$("#egreso").attr('disabled', false)
+
+    //recupera la fecha
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    var fecha = yyyy + '-' + mm + '-' + dd;//formato que se muestra en pantalla
+
+    console.log(formattedToday)
+    $("#fecha").val(fecha)
+
+    //recupera la hora
+    var now = new Date(Date.now());
+    var hs = now.getHours()
+    var min = now.getMinutes()
+
+    if (hs < 10) hs = '0' + hs;
+    if (min < 10) min = '0' + min;
+
+    var hora =  hs + ":" + min
+
+    console.log(hora)
+    $("#hora").val(hora)
+   
+    $.ajax({
+    url: "RegistroIoE.php", //action
+    type: "POST", //method
+    data: {"fecha": fecha, "hora": hora, "i_e": i_e, "id_sucursal": id_sucursal},
+    dataType: "json",
+    success:alert("ingreso")
+    })
+
+})
+
+$("#egreso").click(function(){
+    var i_e = "E"
+    var id_sucursal = $("#sucursal").val()
+
+    //$("#ingreso").attr('disabled', false)
+    //$("#egreso").attr('disabled', true)
+
+    //recupera la fecha
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    var fecha = yyyy + '-' + mm + '-' + dd;//formato que se muestra en pantalla
+
+    console.log(formattedToday)
+    $("#fecha").val(fecha)
+
+    //recupera la hora
+    var now = new Date(Date.now());
+    var hora = now.getHours() + ":" + now.getMinutes()
+
+    console.log(hora)
+    $("#hora").val(hora)
+
+    $.ajax({
+    url: "RegistroIoE.php", //action
+    type: "POST", //method
+    data: {"fecha": fecha, "hora": hora, "i_e": i_e, "id_sucursal": id_sucursal},
+    dataType: "json",
+    success:alert("egreso")
+    })
+      
+})
+
+$("#registrar").click(function(){
+    var id_sucursal = $("#sucursal").val()
+
+    //$("#ingreso").attr('disabled', false)
+    //$("#egreso").attr('disabled', true)
+
+    //recupera la fecha
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    var fecha = yyyy + '-' + mm + '-' + dd;//formato que se muestra en pantalla
+
+    console.log(formattedToday)
+    $("#fecha").val(fecha)
+
+    //recupera la hora
+    var now = new Date(Date.now());
+    var hora = now.getHours() + ":" + now.getMinutes()
+
+    console.log(hora)
+    $("#hora").val(hora)
+
+    $.ajax({
+    url: "RegistrarDatos.php",
+    type: "POST",
+    data:{"fecha": fecha, "id_sucursal": id_sucursal},
+    dataType: "json",
+    })
+    })
+
+    /*
+    function intervalo()
+    {
+    var ingreso = $("#ingreso")
+    setInterval(function(){
+    var sensor = Math.floor(Math.random() * 3) + 1
+    
+    //alert(sensor)
+    if (sensor == 1) 
+    {
+        
+        alert("Ingreso")   
+        ingreso.value = Number(ingreso.value) + 1 
+        
+    }
+    }, 1000)
+    }
+*/
+
+
+</Script>
