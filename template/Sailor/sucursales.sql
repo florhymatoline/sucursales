@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-07-2022 a las 02:18:19
+-- Tiempo de generación: 12-07-2022 a las 01:01:52
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `datos_diarios` (
   `id_datos` int(11) NOT NULL,
   `id_sucursal` int(11) NOT NULL,
-  `id_fyhs` int(11) NOT NULL,
+  `id_sensor` int(11) NOT NULL,
   `cant_personas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -41,8 +41,9 @@ CREATE TABLE `datos_diarios` (
 --
 
 CREATE TABLE `registro` (
-  `id_fyhs` int(11) NOT NULL,
-  `fyhs` datetime NOT NULL,
+  `id_sensor` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` int(11) NOT NULL,
   `i_e` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_sucursal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -58,9 +59,15 @@ CREATE TABLE `sucursales` (
   `sucursal` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `localizacion` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `capacidad_max` int(11) NOT NULL,
-  `encargado` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `sucursales`
+--
+
+INSERT INTO `sucursales` (`id_sucursal`, `sucursal`, `localizacion`, `capacidad_max`, `id_user`) VALUES
+(15, 'test1', 'test1', 10, 14);
 
 -- --------------------------------------------------------
 
@@ -73,8 +80,20 @@ CREATE TABLE `usuarios` (
   `nmb_comp` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `contra` varchar(300) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `tipo_user` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL
+  `tipo_user` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `ocupado` varchar(2) COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_user`, `nmb_comp`, `email`, `contra`, `tipo_user`, `ocupado`) VALUES
+(13, 'test1, test1', 'test1@gmail.com', '12345', 'A', 'SI'),
+(14, 'test2, test2', 'test2@gmail.com', '12345', 'E', 'SI'),
+(15, 'test3, test3', 'test3@gmail.com', '12345', 'E', 'NO'),
+(16, 'test4, test4', 'test4@gmail.com', '12345', 'E', 'NO'),
+(17, 'test5, test5', 'test5@gmail.com', '12345', 'E', 'NO');
 
 --
 -- Índices para tablas volcadas
@@ -90,7 +109,7 @@ ALTER TABLE `datos_diarios`
 -- Indices de la tabla `registro`
 --
 ALTER TABLE `registro`
-  ADD PRIMARY KEY (`id_fyhs`);
+  ADD PRIMARY KEY (`id_sensor`);
 
 --
 -- Indices de la tabla `sucursales`
@@ -118,19 +137,19 @@ ALTER TABLE `datos_diarios`
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `id_fyhs` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sensor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
-  MODIFY `id_sucursal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
