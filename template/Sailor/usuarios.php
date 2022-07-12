@@ -53,9 +53,9 @@ else{header('location: index1git .html');
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="inicio.html">Home</a></li>
-          <li><a href="sucursales.php">Sucursales</a></li>
+          <li><a href="PagPrincipal.html">Sucursales</a></li>
           <li><a href="usuarios.php">Usuarios</a></li>
-          <li><a href="">Consultas</a></li>
+          <li><a href="">Simulación</a></li>
           <a href="logout.php" class="getstarted">LOG OUT</a>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
