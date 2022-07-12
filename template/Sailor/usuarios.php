@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['nombre-usuarios'])) {
     
 }
-else{header('location: index1git .html');
+else{header('location: index1.html');
 }
 ?>
 <!DOCTYPE html>

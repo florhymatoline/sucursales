@@ -17,7 +17,7 @@
     }
     else
     {
-        header("location: index1git .html");
+        header("location: index1.html");
         
     }
 
