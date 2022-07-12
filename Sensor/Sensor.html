@@ -26,7 +26,7 @@
               <button type="button" name="ingreso" id="ingreso" class="btn btn-primary">Ingreso</button>
         </div>
         <div class="col-1">
-            <button type="button" name="egreso" id="egreso" class="btn btn-danger">Ingreso</button>
+            <button type="button" name="egreso" id="egreso" class="btn btn-danger">Egreso</button>
         </div>
         <div class="col-2">
             <input type="date" name="fecha" id="fecha" class="form-control">
@@ -35,8 +35,26 @@
             <input type="time" name="hora" id="hora" class="form-control">
         </div>
         <div class="col-2">
-            <select name="sucursal" id="sucursal"></select>
+            <label for="">id sucursal</label>
+            <select name="sucursal" id="sucursal"><option value="0">sucursal</option></select>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="d-grid gap-2">
+              <button type="button"  id="registrar" class="btn btn-primary">Registrar datos diarios</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+              <label for="" class="form-label">capacidad</label>
+              <input type="text" class="form-control" name="capacidad" id="capacidad" readonly>
+        </div>
+        <div class="col-3">
+            <label for="" class="form-label">Personas en el local</label>
+            <input type="text" class="form-control" name="personas" id="personas" readonly>
+      </div>
     </div>
 </div>
 
@@ -48,13 +66,52 @@
 
 <Script>
 
+
+
+
+$("#sucursal").ready(function(){
+
+    $.ajax({
+        url:"IdSucursal.php",
+        type:"GET",
+        dataType:"json",
+        success: function(respuesta){
+            $.each(respuesta, function(key, value){ 
+            $("#sucursal").append(
+            "<option name='sucursal' value='0"+value.id_sucursal+"'>"+value.id_sucursal+"</option>"
+            )})
+        }
+    })
+
+})
+
+$("#ingreso").attr('disabled', true)
+$("#egreso").attr('disabled', true)   
+$("#registrar").attr('disabled', true)   
+
+$("#sucursal").change(function(){
+    if ($("#sucursal").val() == 0)
+    {
+        $("#ingreso").attr('disabled', true)
+        $("#egreso").attr('disabled', true)        
+        $("#registrar").attr('disabled', true)   
+    }
+    else
+    {
+        $("#ingreso").attr('disabled', false)
+        $("#egreso").attr('disabled', false)        
+        $("#registrar").attr('disabled', false)   
+    }
+})
+
 $("#egreso").attr('disabled', true)
 
 $("#ingreso").click(function(){
-    var i_e = i
+    var i_e = "I"
+    var id_sucursal = $("#sucursal").val()
 
-    $("#ingreso").attr('disabled', true)
-    $("#egreso").attr('disabled', false)
+   // $("#ingreso").attr('disabled', true)
+    //$("#egreso").attr('disabled', false)
 
     //recupera la fecha
     const today = new Date();
@@ -73,19 +130,33 @@ $("#ingreso").click(function(){
 
     //recupera la hora
     var now = new Date(Date.now());
-    var hora = now.getHours() + ":" + now.getMinutes()
+    var hs = now.getHours()
+    var min = now.getMinutes()
+
+    if (hs < 10) hs = '0' + hs;
+    if (min < 10) min = '0' + min;
+
+    var hora =  hs + ":" + min
 
     console.log(hora)
     $("#hora").val(hora)
    
+    $.ajax({
+    url: "RegistroIoE.php", //action
+    type: "POST", //method
+    data: {"fecha": fecha, "hora": hora, "i_e": i_e, "id_sucursal": id_sucursal},
+    dataType: "json",
+    success:alert("ingreso")
+    })
 
 })
 
 $("#egreso").click(function(){
-    var i_e = e
-    
-    $("#ingreso").attr('disabled', false)
-    $("#egreso").attr('disabled', true)
+    var i_e = "E"
+    var id_sucursal = $("#sucursal").val()
+
+    //$("#ingreso").attr('disabled', false)
+    //$("#egreso").attr('disabled', true)
 
     //recupera la fecha
     const today = new Date();
@@ -112,12 +183,50 @@ $("#egreso").click(function(){
     $.ajax({
     url: "RegistroIoE.php", //action
     type: "POST", //method
-    data: {"fecha": fecha, "hora": hora, "i_e": i_e},
+    data: {"fecha": fecha, "hora": hora, "i_e": i_e, "id_sucursal": id_sucursal},
     dataType: "json",
+    success:alert("egreso")
     })
       
 })
-/*
+
+$("#registrar").click(function(){
+    var id_sucursal = $("#sucursal").val()
+
+    //$("#ingreso").attr('disabled', false)
+    //$("#egreso").attr('disabled', true)
+
+    //recupera la fecha
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    var fecha = yyyy + '-' + mm + '-' + dd;//formato que se muestra en pantalla
+
+    console.log(formattedToday)
+    $("#fecha").val(fecha)
+
+    //recupera la hora
+    var now = new Date(Date.now());
+    var hora = now.getHours() + ":" + now.getMinutes()
+
+    console.log(hora)
+    $("#hora").val(hora)
+
+    $.ajax({
+    url: "RegistrarDatos.php",
+    type: "POST",
+    data:{"fecha": fecha, "id_sucursal": id_sucursal},
+    dataType: "json",
+    })
+    })
+
+    /*
     function intervalo()
     {
     var ingreso = $("#ingreso")

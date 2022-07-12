@@ -1,10 +1,15 @@
 <?php
-
 require 'conexion.php';
 
+$id_sucursal = $_POST['id_sucursal'];
 
 
-$q = "SELECT id_sucursal FROM sucursales";
+
+
+
+
+
+$q = "SELECT * FROM sucursales WHERE id_sucursal = '$id_sucursal'";
 
 $r =  mysqli_query($con, $q);
 
@@ -24,6 +29,5 @@ if (mysqli_num_rows($r) > 0){
     }
 
 mysqli_close($con);
-
 
 ?>
